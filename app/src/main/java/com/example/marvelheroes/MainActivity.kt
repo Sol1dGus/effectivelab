@@ -4,6 +4,7 @@ import DetailsScreen
 import Hero
 import HeroCard
 import HomeScreen
+import Nav
 import android.Manifest
 import android.content.Context
 import android.net.ConnectivityManager
@@ -84,20 +85,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MarvelHeroesTheme {
-                val navController = rememberNavController()
-                NavHost(
-                    navController = navController,
-                    startDestination = Screens.home.name
-                )
-                {
-                    composable(route = Screens.home.name) {
-                        HomeScreen(navController)
-                    }
-
-                    composable(route = Screens.detail.name) {
-                        HomeScreen(navController)
-                    }
-                }
+                Nav()
             }
         }
     }

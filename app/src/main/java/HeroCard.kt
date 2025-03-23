@@ -1,4 +1,5 @@
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -31,6 +32,7 @@ fun HeroCard(
             .width(300.dp)
             .padding(horizontal = 16.dp)
             .padding(vertical = 48.dp)
+            .clickable { onClick() }
     ) {
         Box(
             modifier = Modifier

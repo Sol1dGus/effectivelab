@@ -91,7 +91,7 @@ fun HomeScreen(
                     HeroCard(
                         hero = hero,
                         onClick = {
-                            navController.navigate("details/${hero.id}")
+                            navController.navigate("detail")
                         })
                 }
             }
