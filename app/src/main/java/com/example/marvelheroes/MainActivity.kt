@@ -152,13 +152,13 @@ fun HomeScreen(
                 model = ImageRequest.Builder(LocalContext.current)
                     .data("https://s3-alpha-sig.figma.com/img/2620/9b5f/c53e66e73cfdc31dca0326074f3a0bdd?Expires=1743379200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=F3g8MJ9uzTUhKZfupNQKbhDC-F2GNs97GtUIIJeNSsXDnBm2SYHYVmD~JZQ8kMx1Imr2w4Gzd19SXzISb47fdI2AU~Z7Of4i0ngxucH7xZSJTOumwcU9nYUFAI3uLBiT3Z4tA24d9OJLBEUlTZw6fSuMsSuNgPAIlI2j94O0TioN5F4cOtnu0Lo5X7-4VnatFO36usYMmbuGV8o~4IeZjZjds0GUeACzOL5DwqHnBPOnjQs84~RmEhggHZp2RfbK1yokymVNvSzwzC~Ni01dL6B9mU3TvBj-VREEijiV5lwR61jvD~f48C69U0a2QsPUuRb6nO27sorKoZrg4NMLCQ__")
                     .build(),
-                placeholder = painterResource(R.drawable.placeholder),
+                placeholder = painterResource(R.drawable.loading),
                 modifier = modifier
                     .fillMaxWidth()
                     .height(100.dp)
                     .padding(bottom = 16.dp),
                 contentDescription = null,
-                error = painterResource(R.drawable.error_image)
+                error = painterResource(R.drawable.error)
             )
 
             Text(
@@ -216,11 +216,11 @@ private fun RowHeroItem(
                 model = ImageRequest.Builder(LocalContext.current)
                     .data(hero.imageUrl)
                     .build(),
-                placeholder = painterResource(R.drawable.placeholder),
+                placeholder = painterResource(R.drawable.loading),
                 modifier = modifier
                     .fillMaxSize(),
                 contentDescription = null,
-                error = painterResource(R.drawable.error_image)
+                error = painterResource(R.drawable.error)
             )
             // Текст поверх изображения
             Text(
@@ -235,7 +235,7 @@ private fun RowHeroItem(
 }
 
 @Composable
-fun DetailsScreen(navController: NavController, hero: Hero) {
+fun DetailsScreen(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
