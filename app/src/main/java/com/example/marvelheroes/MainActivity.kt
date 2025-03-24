@@ -90,18 +90,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-enum class Screens() {
-    home,
-    detail
-}
-
-@Preview
-@Composable
-fun AppPreview() {
-    val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = "home") {
-        composable("home") { HomeScreen(navController) }
-        composable("details") { DetailsScreen(navController) }
-    }
-}

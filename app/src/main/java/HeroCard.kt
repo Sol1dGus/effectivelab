@@ -32,14 +32,14 @@ import com.example.marvelheroes.R
 fun HeroCard(
     modifier: Modifier = Modifier,
     hero: Hero,
-    onClick: () -> Unit
+    onClick: (Int) -> Unit
 ){
     OutlinedCard(
         modifier = modifier
             .fillMaxHeight()
             .padding(horizontal = 16.dp)
             .padding(vertical = 36.dp)
-            .clickable { onClick() },
+            .clickable { onClick(hero.id) },
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.background,
         ),

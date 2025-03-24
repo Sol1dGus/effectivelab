@@ -61,7 +61,7 @@ fun HomeScreen(
                     .data("https://s3-alpha-sig.figma.com/img/2620/9b5f/c53e66e73cfdc31dca0326074f3a0bdd?Expires=1743379200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=F3g8MJ9uzTUhKZfupNQKbhDC-F2GNs97GtUIIJeNSsXDnBm2SYHYVmD~JZQ8kMx1Imr2w4Gzd19SXzISb47fdI2AU~Z7Of4i0ngxucH7xZSJTOumwcU9nYUFAI3uLBiT3Z4tA24d9OJLBEUlTZw6fSuMsSuNgPAIlI2j94O0TioN5F4cOtnu0Lo5X7-4VnatFO36usYMmbuGV8o~4IeZjZjds0GUeACzOL5DwqHnBPOnjQs84~RmEhggHZp2RfbK1yokymVNvSzwzC~Ni01dL6B9mU3TvBj-VREEijiV5lwR61jvD~f48C69U0a2QsPUuRb6nO27sorKoZrg4NMLCQ__")
                     .build(),
                 placeholder = painterResource(R.drawable.loading),
-                modifier = modifier
+                modifier = Modifier
                     .fillMaxWidth()
                     .height(100.dp)
                     .padding(bottom = 16.dp),
@@ -90,7 +90,8 @@ fun HomeScreen(
                     HeroCard(
                         hero = hero,
                         onClick = {
-                            navController.navigate("detail")
+                            println("heroid = ${hero.id} на момент перехода с home")
+                            navController.navigate("details/${hero.id}")
                         })
                 }
             }
