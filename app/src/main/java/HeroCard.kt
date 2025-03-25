@@ -1,14 +1,9 @@
-import android.R.attr.color
-import android.R.color
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
@@ -32,14 +27,14 @@ import com.example.marvelheroes.R
 fun HeroCard(
     modifier: Modifier = Modifier,
     hero: Hero,
-    onClick: () -> Unit
+    onClick: (Int) -> Unit
 ){
     OutlinedCard(
         modifier = modifier
             .fillMaxHeight()
-            .padding(horizontal = 16.dp)
+            .padding(horizontal = 28.dp)
             .padding(vertical = 36.dp)
-            .clickable { onClick() },
+            .clickable { onClick(hero.id) },
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.background,
         ),
