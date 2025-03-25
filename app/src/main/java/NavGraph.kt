@@ -16,7 +16,7 @@ fun Nav() {
 
         composable(route = "details/{heroId}")
         { backStackEntry ->
-            val heroId = backStackEntry.arguments?.getString("heroId")?.toIntOrNull();
+            val heroId = backStackEntry.arguments?.getString("heroId")?.toIntOrNull()
             println(backStackEntry.arguments)
             println("heroId = $heroId")
             DetailsScreen(navController, heroId)

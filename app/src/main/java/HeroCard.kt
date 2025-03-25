@@ -32,9 +32,9 @@ fun HeroCard(
     OutlinedCard(
         modifier = modifier
             .fillMaxHeight()
+            .clickable { onClick(hero.id) }
             .padding(horizontal = 28.dp)
-            .padding(vertical = 36.dp)
-            .clickable { onClick(hero.id) },
+            .padding(vertical = 36.dp),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.background,
         ),
@@ -52,7 +52,7 @@ fun HeroCard(
                     .data(hero.imageUrl)
                     .build(),
                 placeholder = painterResource(R.drawable.loading),
-                modifier = modifier
+                modifier = Modifier
                     .fillMaxSize(),
                 contentDescription = null,
                 error = painterResource(R.drawable.error),

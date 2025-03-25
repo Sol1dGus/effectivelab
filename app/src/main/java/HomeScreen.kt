@@ -13,7 +13,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -36,9 +39,10 @@ fun HomeScreen(
     val snapBehavior = rememberSnapFlingBehavior(lazyListState = lazyListState)
     val heroList = remember {HeroList()}
     val heroes = heroList.getHeroList()
+    var lastClickTime by remember { mutableLongStateOf(0L) }
 
     Box(
-        modifier = Modifier.fillMaxSize()
+        modifier = modifier.fillMaxSize()
     ) {
         // Фоновое изображение
         Image(
@@ -84,6 +88,7 @@ fun HomeScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(top = 12.dp),
+
                 state = lazyListState,
                 flingBehavior = snapBehavior,
                 contentPadding = PaddingValues(horizontal = 16.dp)
@@ -92,8 +97,11 @@ fun HomeScreen(
                     HeroCard(
                         hero = hero,
                         onClick = {
-                            println("heroid = ${hero.id} на момент перехода с home")
-                            navController.navigate("details/${hero.id}")
+                            val currentTime = System.currentTimeMillis()
+                            if (currentTime - lastClickTime > 500) {  // 500 мс — минимальный интервал
+                                lastClickTime = currentTime
+                                navController.navigate("details/${hero.id}")
+                            }
                         })
                 }
             }
