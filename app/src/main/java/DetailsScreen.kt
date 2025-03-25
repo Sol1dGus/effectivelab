@@ -11,7 +11,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,6 +30,7 @@ fun DetailsScreen(navController: NavController, heroId : Int?) {
     val heroList = remember {HeroList()}
     val heroes = heroList.getHeroList()
     val hero : Hero;
+    val isClicked = false;
     if (heroId != null)
     {
         hero = heroes.get(heroId)
@@ -89,13 +89,14 @@ fun DetailsScreen(navController: NavController, heroId : Int?) {
                 Button(
                     onClick = { navController.popBackStack() },
                     colors = ButtonColors(
-                        containerColor = Color.Gray,
+                        containerColor = Color.Black,
                         contentColor = Color.White,
-                        disabledContainerColor = Color.Gray,
-                        disabledContentColor = Color.Gray
-                    )
+                        disabledContainerColor = Color.Black,
+                        disabledContentColor = Color.Black
+                    ),
+                    border = BorderStroke(width = 1.dp, color = Color.Red)
                     ) {
-                    Text(text = "Back")
+                    Text(text = "<")
                 }
             }
         }
