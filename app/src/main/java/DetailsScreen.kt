@@ -11,7 +11,10 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,11 +32,11 @@ import com.example.marvelheroes.R
 fun DetailsScreen(navController: NavController, heroId : Int?) {
     val heroList = remember {HeroList()}
     val heroes = heroList.getHeroList()
-    val hero : Hero;
-    val isClicked = false;
+    val hero : Hero
+    var lastClickTime by remember { mutableLongStateOf(0L) }
     if (heroId != null)
     {
-        hero = heroes.get(heroId)
+        hero = heroes[heroId]
         Box(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.BottomCenter
@@ -87,7 +90,13 @@ fun DetailsScreen(navController: NavController, heroId : Int?) {
             )
             {
                 Button(
-                    onClick = { navController.popBackStack() },
+                    onClick = {
+                        val currentTime = System.currentTimeMillis()
+                        if (currentTime - lastClickTime > 500) {
+                            lastClickTime = currentTime
+                            navController.popBackStack()
+                        }
+                    },
                     colors = ButtonColors(
                         containerColor = Color.Black,
                         contentColor = Color.White,
