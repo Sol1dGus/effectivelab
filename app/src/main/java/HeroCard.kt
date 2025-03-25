@@ -32,7 +32,7 @@ fun HeroCard(
     OutlinedCard(
         modifier = modifier
             .fillMaxHeight()
-            .padding(horizontal = 16.dp)
+            .padding(horizontal = 28.dp)
             .padding(vertical = 36.dp)
             .clickable { onClick(hero.id) },
         colors = CardDefaults.cardColors(

@@ -11,6 +11,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -61,17 +62,21 @@ fun DetailsScreen(navController: NavController, heroId : Int?) {
 
                 border = BorderStroke(1.dp, Color.Red),
             ) {
-                Column {
+                Column (
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ){
                     Text(
                         text = hero.name,
                         color = Color.White,
-                        fontSize = 36.sp
+                        fontSize = 36.sp,
+                        modifier = Modifier.padding(8.dp)
                     )
 
                     Text(
                         text = hero.description,
                         color = Color.White,
-                        fontSize = 16.sp
+                        fontSize = 16.sp,
+                        modifier = Modifier.padding(8.dp)
                     )
                 }
             }
@@ -84,13 +89,11 @@ fun DetailsScreen(navController: NavController, heroId : Int?) {
                 Button(
                     onClick = { navController.popBackStack() },
                     colors = ButtonColors(
-                        containerColor = Color.White,
+                        containerColor = Color.Gray,
                         contentColor = Color.White,
-                        disabledContainerColor = Color.White,
-                        disabledContentColor = Color.White
+                        disabledContainerColor = Color.Gray,
+                        disabledContentColor = Color.Gray
                     )
-
-
                     ) {
                     Text(text = "Back")
                 }

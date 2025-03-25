@@ -2,6 +2,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -52,7 +53,7 @@ fun HomeScreen(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp),
+                .padding(top = 8.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         )
         {
@@ -64,7 +65,7 @@ fun HomeScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(100.dp)
-                    .padding(bottom = 16.dp),
+                    .padding(top = 16.dp),
                 contentDescription = null,
                 error = painterResource(R.drawable.error)
             )
@@ -72,7 +73,8 @@ fun HomeScreen(
             Text(
                 text = "Choose your hero!",
                 Modifier
-                    .wrapContentWidth(),
+                    .wrapContentWidth()
+                    .padding(top = 16.dp),
                 fontSize = 30.sp,
                 color = Color.White
             )
@@ -81,10 +83,10 @@ fun HomeScreen(
             LazyRow(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(top = 16.dp)
-                    .padding(horizontal = 20.dp),
+                    .padding(top = 12.dp),
                 state = lazyListState,
-                flingBehavior = snapBehavior
+                flingBehavior = snapBehavior,
+                contentPadding = PaddingValues(horizontal = 16.dp)
             ) {
                 items(heroes, key = Hero::hashCode) { hero: Hero ->
                     HeroCard(
