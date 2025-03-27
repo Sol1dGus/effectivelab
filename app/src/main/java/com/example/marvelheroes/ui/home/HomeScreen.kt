@@ -103,7 +103,7 @@ fun HomeScreen(
                         hero = hero,
                         onClick = {
                             val currentTime = System.currentTimeMillis()
-                            if (currentTime - lastClickTime > 500) {  // 500 мс — минимальный интервал
+                            if (currentTime - lastClickTime > 500) {
                                 lastClickTime = currentTime
                                 navController.navigate("details/${hero.id}")
                             }

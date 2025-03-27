@@ -31,7 +31,6 @@ import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import com.example.marvelheroes.R
 import com.example.marvelheroes.data.models.Hero
-import com.example.marvelheroes.ui.home.HomeViewModel
 
 @Composable
 fun DetailsScreen(
@@ -121,7 +120,7 @@ fun DetailsScreen(
     }
     else
     {
-        Text(text = "com.example.marvelheroes.data.models.Hero wasn't found")
+        Text(text = "Hero wasn't found")
     }
 
 }
