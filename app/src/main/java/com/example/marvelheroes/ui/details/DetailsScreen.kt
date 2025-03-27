@@ -25,17 +25,22 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import com.example.marvelheroes.R
 import com.example.marvelheroes.data.models.Hero
-import com.example.marvelheroes.data.repository.HeroRepository
+import com.example.marvelheroes.ui.home.HomeViewModel
 
 @Composable
-fun DetailsScreen(navController: NavController, heroId : Int?) {
-    val heroRepository = remember { HeroRepository() }
-    val heroes = heroRepository.getHeroList()
+fun DetailsScreen(
+    navController: NavController,
+    heroId : Int?,
+    viewModel: DetailsViewModel = viewModel()
+)
+{
+    val heroes = viewModel.heroes
     val hero : Hero
     var lastClickTime by remember { mutableLongStateOf(0L) }
     if (heroId != null)

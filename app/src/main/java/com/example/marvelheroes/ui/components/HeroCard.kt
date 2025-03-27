@@ -21,11 +21,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
-import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.example.marvelheroes.R
 import com.example.marvelheroes.data.models.Hero
 
-@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 fun HeroCard(
     modifier: Modifier = Modifier,

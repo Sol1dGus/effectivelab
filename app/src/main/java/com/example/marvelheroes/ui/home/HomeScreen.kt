@@ -27,23 +27,23 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import com.example.marvelheroes.R
 import com.example.marvelheroes.data.models.Hero
-import com.example.marvelheroes.data.repository.HeroRepository
 import com.example.marvelheroes.ui.components.HeroCard
 
 @Composable
 fun HomeScreen(
     navController: NavController,
     modifier: Modifier = Modifier,
+    viewModel: HomeViewModel = viewModel()
 ) {
     val lazyListState = rememberLazyListState()
     val snapBehavior = rememberSnapFlingBehavior(lazyListState = lazyListState)
-    val heroRepository = remember { HeroRepository() }
-    val heroes = heroRepository.getHeroList()
+    val heroes = viewModel.heroes
     var lastClickTime by remember { mutableLongStateOf(0L) }
 
     Box(
