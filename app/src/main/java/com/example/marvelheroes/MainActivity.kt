@@ -1,6 +1,6 @@
 package com.example.marvelheroes
 
-import Nav
+import com.example.marvelheroes.navigation.Nav
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent

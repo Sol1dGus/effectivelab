@@ -1,3 +1,5 @@
+package com.example.marvelheroes.ui.details
+
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -27,11 +29,13 @@ import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import com.example.marvelheroes.R
+import com.example.marvelheroes.data.models.Hero
+import com.example.marvelheroes.data.repository.HeroRepository
 
 @Composable
 fun DetailsScreen(navController: NavController, heroId : Int?) {
-    val heroList = remember {HeroList()}
-    val heroes = heroList.getHeroList()
+    val heroRepository = remember { HeroRepository() }
+    val heroes = heroRepository.getHeroList()
     val hero : Hero
     var lastClickTime by remember { mutableLongStateOf(0L) }
     if (heroId != null)
@@ -112,7 +116,7 @@ fun DetailsScreen(navController: NavController, heroId : Int?) {
     }
     else
     {
-        Text(text = "Hero wasn't found")
+        Text(text = "com.example.marvelheroes.data.models.Hero wasn't found")
     }
 
 }

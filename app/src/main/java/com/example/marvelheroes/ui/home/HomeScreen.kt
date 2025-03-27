@@ -1,3 +1,5 @@
+package com.example.marvelheroes.ui.home
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
 import androidx.compose.foundation.layout.Box
@@ -29,6 +31,9 @@ import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import com.example.marvelheroes.R
+import com.example.marvelheroes.data.models.Hero
+import com.example.marvelheroes.data.repository.HeroRepository
+import com.example.marvelheroes.ui.components.HeroCard
 
 @Composable
 fun HomeScreen(
@@ -37,8 +42,8 @@ fun HomeScreen(
 ) {
     val lazyListState = rememberLazyListState()
     val snapBehavior = rememberSnapFlingBehavior(lazyListState = lazyListState)
-    val heroList = remember {HeroList()}
-    val heroes = heroList.getHeroList()
+    val heroRepository = remember { HeroRepository() }
+    val heroes = heroRepository.getHeroList()
     var lastClickTime by remember { mutableLongStateOf(0L) }
 
     Box(
