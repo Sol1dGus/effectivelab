@@ -30,6 +30,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
@@ -42,20 +43,20 @@ import com.example.marvelheroes.ui.components.HeroCard
 fun HomeScreen(
     navController: NavController,
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = viewModel()
+    viewModel: HomeViewModel = hiltViewModel()
 ) {
     val uiState = viewModel.uiState;
     when (uiState) {
         is HomeViewModel.HeroesUiState.Loading -> LoadingScreen() //Экран загрузки
-        is HomeViewModel.HeroesUiState.Error -> ErrorScreen() // Экран ошибки
+        is HomeViewModel.HeroesUiState.Error -> ErrorScreen(uiState.message) // Экран ошибки
         is HomeViewModel.HeroesUiState.Success ->  SuccessScreen(navController, modifier, uiState.heroes) // Главный экран
     }
 }
 
 @Preview
 @Composable
-fun ErrorScreen() {
-    Text("Ошибка")
+fun ErrorScreen(message: String = "Ошибка") {
+    Text(message)
 }
 
 @Preview

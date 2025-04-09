@@ -27,6 +27,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
@@ -41,12 +42,12 @@ import kotlin.collections.get
 fun DetailsScreen(
     navController: NavController,
     heroId : Int?,
-    viewModel: DetailsViewModel = viewModel()
+    viewModel: DetailsViewModel = hiltViewModel()
 ) {
     val uiState = viewModel.uiState;
     when (uiState) {
         is DetailsViewModel.HeroUiState.Loading -> LoadingScreen()
-        is DetailsViewModel.HeroUiState.Error -> ErrorScreen() // Экран ошибки
+        is DetailsViewModel.HeroUiState.Error -> ErrorScreen(uiState.message) // Экран ошибки
         is DetailsViewModel.HeroUiState.Success -> SuccessScreen(navController, uiState.hero)
     }
 }
@@ -60,8 +61,8 @@ fun LoadingScreen()
 
 @Preview
 @Composable
-fun ErrorScreen() {
-    Text("Ошибка")
+fun ErrorScreen(message: String = "Ошибка") {
+    Text(message)
 }
 
 @Composable

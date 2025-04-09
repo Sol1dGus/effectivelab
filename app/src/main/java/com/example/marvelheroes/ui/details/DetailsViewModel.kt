@@ -7,6 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
 import com.example.marvelheroes.data.models.Hero
+import com.example.marvelheroes.ui.home.HomeViewModel.HeroesUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,7 +20,7 @@ class DetailsViewModel @Inject constructor(
 {
     sealed interface HeroUiState {
         data class Success(val hero: Hero) : HeroUiState
-        object Error : HeroUiState
+        class Error(val message: String) : HeroUiState
         object Loading : HeroUiState
     }
 
@@ -33,7 +34,7 @@ class DetailsViewModel @Inject constructor(
                 val hero = repository.getHeroById(id)
                 _uiState = HeroUiState.Success(hero)
             } catch (e: Exception) {
-                _uiState = HeroUiState.Error
+                _uiState = HeroUiState.Error(e.localizedMessage ?: "Unknown problem")
             }
         }
     }

@@ -1,5 +1,8 @@
 package com.example.marvelheroes.data.api
 
+import com.example.marvelheroes.BuildConfig
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,20 +16,20 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object MarvelApiClient {
     private const val BASE_URL = "https://gateway.marvel.com/"
-    private const val MARVEL_PRIVATE_KEY = "228"
-    private const val MARVEL_PUBLIC_KEY = "228"
+    val moshi = Moshi.Builder()
+        .add(KotlinJsonAdapterFactory())
+        .build()
 
+    @Provides
     @Singleton
-    val api: MarvelApi by lazy {
-        Retrofit.Builder()
+    fun api(): MarvelApi {
+        val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .addConverterFactory(MoshiConverterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
-            .create(MarvelApi::class.java)
-    }
 
-    fun generateHash(timestamp: String): String {
-        val input = timestamp + MARVEL_PRIVATE_KEY + MARVEL_PUBLIC_KEY
-        return DigestUtils.md5Hex(input)
+        return retrofit.create(MarvelApi::class.java)
     }
 }
+
+

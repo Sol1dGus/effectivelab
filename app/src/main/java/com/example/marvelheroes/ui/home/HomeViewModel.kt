@@ -1,5 +1,6 @@
 package com.example.marvelheroes.ui.home
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -22,7 +23,7 @@ class HomeViewModel @Inject constructor(
 
 sealed interface HeroesUiState {
         data class Success(val heroes: List<Hero>) : HeroesUiState
-        object Error : HeroesUiState
+        class Error(val message: String) : HeroesUiState
         object Loading : HeroesUiState
     }
 
@@ -40,7 +41,8 @@ sealed interface HeroesUiState {
                 val heroes = repository.getHeroes()
                 _uiState = HeroesUiState.Success(heroes)
             } catch (e: Exception) {
-                _uiState = HeroesUiState.Error
+                Log.e("HomeViewModel", e.localizedMessage ?: "Unknown problem")
+                _uiState = HeroesUiState.Error(e.localizedMessage ?: "Unknown problem")
             }
         }
     }

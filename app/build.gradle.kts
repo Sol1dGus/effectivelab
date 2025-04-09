@@ -13,8 +13,8 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        buildConfigField ("String", "MARVEL_PUBLIC_KEY", "\"ваш_публичный_ключ\"")
-        buildConfigField ("String", "MARVEL_PRIVATE_KEY", "\"ваш_приватный_ключ\"")
+        buildConfigField ("String", "MARVEL_PUBLIC_KEY", "\"b599b2cea5c8b794ba83cadf41a70e67\"")
+        buildConfigField ("String", "MARVEL_PRIVATE_KEY", "\"768333402f2317458d0ead51c300c9f3947a0b64\"")
 
         applicationId = "com.example.marvelheroes"
         minSdk = 24
