@@ -23,7 +23,7 @@ data class CharacterDto(
         id = id,
         name = name,
         description = description,
-        imageUrl = "${thumbnail.path}.${thumbnail.extension}"
+        imageUrl = "${thumbnail.path.replace("http", "https")}.${thumbnail.extension}"
     )
 }
 

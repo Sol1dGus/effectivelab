@@ -22,6 +22,22 @@ class HeroRepository @Inject constructor(
         return response.data.results.map { it.toHero() }
     }
 
+    suspend fun getHeroesByIds(ids: List<Int>) : List<Hero>
+    {
+        var heroList = mutableListOf<Hero>()
+        for (id : Int in ids) {
+            val timestamp = System.currentTimeMillis().toString()
+            val response = api.getCharacterById(
+                id = id,
+                apiKey = BuildConfig.MARVEL_PUBLIC_KEY,
+                timestamp = timestamp,
+                hash = hashGenerator.generateHash(timestamp)
+            )
+            heroList.add(response.data.results.first().toHero())
+        }
+        return heroList
+    }
+
     suspend fun getHeroById(id: Int): Hero {
         val timestamp = System.currentTimeMillis().toString()
         val response = api.getCharacterById(

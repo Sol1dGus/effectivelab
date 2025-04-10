@@ -30,15 +30,30 @@ sealed interface HeroesUiState {
     private var _uiState by mutableStateOf<HeroesUiState>(HeroesUiState.Loading)
     val uiState: HeroesUiState get() = _uiState
 
+    val heroIds = listOf(
+        1009610, // Spider-Man
+        1009368, // Iron Man
+        1009220, // Captain America
+        1009664, // Thor
+        1009351, // Hulk
+        1009189, // Black Widow
+        1009718, // Wolverine
+        1009268, // Deadpool
+        1009282, // Doctor Strange
+        1009338, // Hawkeye
+        1011334, // Vision
+        1017100  // Scarlet Witch
+    )
+
     init {
-        getHeroes()
+        getHeroesByIds()
     }
 
-    fun getHeroes() {
+    fun getHeroesByIds() {
         viewModelScope.launch {
             _uiState = HeroesUiState.Loading
             try {
-                val heroes = repository.getHeroes()
+                val heroes = repository.getHeroesByIds(heroIds)
                 _uiState = HeroesUiState.Success(heroes)
             } catch (e: Exception) {
                 Log.e("HomeViewModel", e.localizedMessage ?: "Unknown problem")

@@ -14,6 +14,7 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.remember
@@ -24,19 +25,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import com.example.marvelheroes.R
 import com.example.marvelheroes.data.models.Hero
 import com.example.marvelheroes.ui.home.ErrorScreen
-import com.example.marvelheroes.ui.home.HomeViewModel
-import kotlin.collections.get
 
 @Composable
 fun DetailsScreen(
@@ -44,6 +43,11 @@ fun DetailsScreen(
     heroId : Int?,
     viewModel: DetailsViewModel = hiltViewModel()
 ) {
+
+    LaunchedEffect(heroId) {
+        viewModel.getHero(heroId)
+    }
+
     val uiState = viewModel.uiState;
     when (uiState) {
         is DetailsViewModel.HeroUiState.Loading -> LoadingScreen()
@@ -102,6 +106,7 @@ fun SuccessScreen(navController:NavController, hero:Hero)
             ) {
                 Text(
                     text = hero.name,
+                    style = TextStyle(fontSize = 16.sp, lineHeight = 36.sp),
                     color = Color.White,
                     fontSize = 36.sp,
                     modifier = Modifier.padding(8.dp)
