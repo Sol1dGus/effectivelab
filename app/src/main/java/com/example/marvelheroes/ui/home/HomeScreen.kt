@@ -38,6 +38,8 @@ import coil3.request.ImageRequest
 import com.example.marvelheroes.R
 import com.example.marvelheroes.data.models.Hero
 import com.example.marvelheroes.ui.components.HeroCard
+import com.example.marvelheroes.ui.loading.LoadingScreen
+import com.example.marvelheroes.ui.error.ErrorScreen
 
 @Composable
 fun HomeScreen(
@@ -51,19 +53,6 @@ fun HomeScreen(
         is HomeViewModel.HeroesUiState.Error -> ErrorScreen(uiState.message) // Экран ошибки
         is HomeViewModel.HeroesUiState.Success ->  SuccessScreen(navController, modifier, uiState.heroes) // Главный экран
     }
-}
-
-@Preview
-@Composable
-fun ErrorScreen(message: String = "Ошибка") {
-    Text(message)
-}
-
-@Preview
-@Composable
-fun LoadingScreen()
-{
-    CircularProgressIndicator()
 }
 
 @Composable

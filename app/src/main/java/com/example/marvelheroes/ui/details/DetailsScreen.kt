@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,7 +34,8 @@ import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import com.example.marvelheroes.R
 import com.example.marvelheroes.data.models.Hero
-import com.example.marvelheroes.ui.home.ErrorScreen
+import com.example.marvelheroes.ui.loading.LoadingScreen
+import com.example.marvelheroes.ui.error.ErrorScreen
 
 @Composable
 fun DetailsScreen(
@@ -54,19 +54,6 @@ fun DetailsScreen(
         is DetailsViewModel.HeroUiState.Error -> ErrorScreen(uiState.message) // Экран ошибки
         is DetailsViewModel.HeroUiState.Success -> SuccessScreen(navController, uiState.hero)
     }
-}
-
-@Preview
-@Composable
-fun LoadingScreen()
-{
-    CircularProgressIndicator()
-}
-
-@Preview
-@Composable
-fun ErrorScreen(message: String = "Ошибка") {
-    Text(message)
 }
 
 @Composable
