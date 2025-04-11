@@ -1,3 +1,5 @@
+import org.gradle.kotlin.dsl.implementation
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -11,6 +13,9 @@ android {
     compileSdk = 35
 
     defaultConfig {
+        buildConfigField ("String", "MARVEL_PUBLIC_KEY", "\"b599b2cea5c8b794ba83cadf41a70e67\"")
+        buildConfigField ("String", "MARVEL_PRIVATE_KEY", "\"768333402f2317458d0ead51c300c9f3947a0b64\"")
+
         applicationId = "com.example.marvelheroes"
         minSdk = 24
         targetSdk = 35
@@ -38,6 +43,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -46,6 +52,11 @@ kapt {
 }
 
 dependencies {
+    implementation(libs.retrofit)
+    implementation(libs.moshi.kotlin)
+    implementation (libs.converter.moshi)
+    implementation(libs.commons.codec)
+    implementation(libs.converter.scalars)
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)

@@ -1,0 +1,24 @@
+package com.example.marvelheroes.data.api
+
+import retrofit2.http.GET
+import retrofit2.http.Path
+import retrofit2.http.Query
+
+
+interface MarvelApi {
+    @GET("v1/public/characters")
+    suspend fun getCharacters(
+        @Query("apikey") apiKey: String,
+        @Query("ts") timestamp: String,
+        @Query("hash") hash: String,
+        @Query("limit") limit: Int = 50
+    ): MarvelResponse
+
+    @GET("v1/public/characters/{characterId}")
+    suspend fun getCharacterById(
+        @Path("characterId") id: Int,
+        @Query("apikey") apiKey: String,
+        @Query("ts") timestamp: String,
+        @Query("hash") hash: String
+    ): MarvelResponse
+}

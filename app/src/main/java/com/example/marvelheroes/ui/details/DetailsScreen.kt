@@ -13,6 +13,7 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.remember
@@ -23,105 +24,113 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import com.example.marvelheroes.R
 import com.example.marvelheroes.data.models.Hero
-import com.example.marvelheroes.ui.home.HomeViewModel
+import com.example.marvelheroes.ui.loading.LoadingScreen
+import com.example.marvelheroes.ui.error.ErrorScreen
 
 @Composable
 fun DetailsScreen(
     navController: NavController,
     heroId : Int?,
-    viewModel: DetailsViewModel = viewModel()
-)
+    viewModel: DetailsViewModel = hiltViewModel()
+) {
+
+    LaunchedEffect(heroId) {
+        viewModel.getHero(heroId)
+    }
+
+    val uiState = viewModel.uiState;
+    when (uiState) {
+        is DetailsViewModel.HeroUiState.Loading -> LoadingScreen()
+        is DetailsViewModel.HeroUiState.Error -> ErrorScreen(uiState.message) // Экран ошибки
+        is DetailsViewModel.HeroUiState.Success -> SuccessScreen(navController, uiState.hero)
+    }
+}
+
+@Composable
+fun SuccessScreen(navController:NavController, hero:Hero)
 {
-    val heroes = viewModel.heroes
-    val hero : Hero
     var lastClickTime by remember { mutableLongStateOf(0L) }
-    if (heroId != null)
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.BottomCenter
+    )
     {
-        hero = heroes[heroId]
+        AsyncImage(
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(hero.imageUrl)
+                .build(),
+            placeholder = painterResource(R.drawable.loading),
+            modifier = Modifier
+                .fillMaxHeight(),
+            contentScale = ContentScale.Crop,
+            contentDescription = null,
+            error = painterResource(R.drawable.error)
+        )
+
+        OutlinedCard(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
+                .padding(vertical = 36.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = Color(0xFF000000)
+            ),
+
+            border = BorderStroke(1.dp, Color.Red),
+        ) {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = hero.name,
+                    style = TextStyle(fontSize = 16.sp, lineHeight = 36.sp),
+                    color = Color.White,
+                    fontSize = 36.sp,
+                    modifier = Modifier.padding(8.dp)
+                )
+
+                Text(
+                    text = hero.description,
+                    color = Color.White,
+                    fontSize = 16.sp,
+                    modifier = Modifier.padding(8.dp)
+                )
+            }
+        }
         Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.BottomCenter
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(12.dp),
         )
         {
-            AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(hero.imageUrl)
-                    .build(),
-                placeholder = painterResource(R.drawable.loading),
-                modifier = Modifier
-                    .fillMaxHeight(),
-                contentScale = ContentScale.Crop,
-                contentDescription = null,
-                error = painterResource(R.drawable.error)
-            )
-
-            OutlinedCard(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp)
-                    .padding(vertical = 36.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = Color(0xFF000000)
+            Button(
+                onClick = {
+                    val currentTime = System.currentTimeMillis()
+                    if (currentTime - lastClickTime > 500) {
+                        lastClickTime = currentTime
+                        navController.popBackStack()
+                    }
+                },
+                colors = ButtonColors(
+                    containerColor = Color.Black,
+                    contentColor = Color.White,
+                    disabledContainerColor = Color.Black,
+                    disabledContentColor = Color.Black
                 ),
-
-                border = BorderStroke(1.dp, Color.Red),
+                border = BorderStroke(width = 1.dp, color = Color.Red)
             ) {
-                Column (
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ){
-                    Text(
-                        text = hero.name,
-                        color = Color.White,
-                        fontSize = 36.sp,
-                        modifier = Modifier.padding(8.dp)
-                    )
-
-                    Text(
-                        text = hero.description,
-                        color = Color.White,
-                        fontSize = 16.sp,
-                        modifier = Modifier.padding(8.dp)
-                    )
-                }
-            }
-            Box(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(12.dp),
-            )
-            {
-                Button(
-                    onClick = {
-                        val currentTime = System.currentTimeMillis()
-                        if (currentTime - lastClickTime > 500) {
-                            lastClickTime = currentTime
-                            navController.popBackStack()
-                        }
-                    },
-                    colors = ButtonColors(
-                        containerColor = Color.Black,
-                        contentColor = Color.White,
-                        disabledContainerColor = Color.Black,
-                        disabledContentColor = Color.Black
-                    ),
-                    border = BorderStroke(width = 1.dp, color = Color.Red)
-                    ) {
-                    Text(text = "<")
-                }
+                Text(text = "<")
             }
         }
     }
-    else
-    {
-        Text(text = "com.example.marvelheroes.data.models.Hero wasn't found")
-    }
-
 }

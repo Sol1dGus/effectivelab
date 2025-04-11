@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
@@ -17,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
@@ -33,6 +35,7 @@ fun HeroCard(
     OutlinedCard(
         modifier = modifier
             .fillMaxHeight()
+            .width(400.dp)
             .clickable { onClick(hero.id) }
             .padding(horizontal = 28.dp)
             .padding(vertical = 36.dp),
@@ -62,6 +65,7 @@ fun HeroCard(
             //Имя героя
             Text(
                 text = hero.name,
+                style = TextStyle(fontSize = 16.sp, lineHeight = 36.sp),
                 color = Color.White,
                 modifier = Modifier
                     .padding(16.dp),
