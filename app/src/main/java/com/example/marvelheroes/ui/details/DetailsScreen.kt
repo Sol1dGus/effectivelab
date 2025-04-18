@@ -40,7 +40,7 @@ import com.example.marvelheroes.ui.error.ErrorScreen
 @Composable
 fun DetailsScreen(
     navController: NavController,
-    heroId : Int?,
+    heroId: Int?,
     viewModel: DetailsViewModel = hiltViewModel()
 ) {
 
@@ -57,8 +57,7 @@ fun DetailsScreen(
 }
 
 @Composable
-fun SuccessScreen(navController:NavController, hero:Hero)
-{
+fun SuccessScreen(navController: NavController, hero: Hero) {
     var lastClickTime by remember { mutableLongStateOf(0L) }
     Box(
         modifier = Modifier.fillMaxSize(),

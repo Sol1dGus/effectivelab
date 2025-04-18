@@ -31,7 +31,7 @@ fun HeroCard(
     modifier: Modifier = Modifier,
     hero: Hero,
     onClick: (Int) -> Unit
-){
+) {
     OutlinedCard(
         modifier = modifier
             .fillMaxHeight()
@@ -50,7 +50,6 @@ fun HeroCard(
             contentAlignment = Alignment.BottomStart
         )
         {
-            //Изображение героя
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
                     .data(hero.imageUrl)
@@ -62,7 +61,7 @@ fun HeroCard(
                 error = painterResource(R.drawable.error),
                 contentScale = ContentScale.Crop
             )
-            //Имя героя
+
             Text(
                 text = hero.name,
                 style = TextStyle(fontSize = 16.sp, lineHeight = 36.sp),

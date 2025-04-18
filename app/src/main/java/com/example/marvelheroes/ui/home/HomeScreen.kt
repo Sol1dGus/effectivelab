@@ -51,13 +51,16 @@ fun HomeScreen(
     when (uiState) {
         is HomeViewModel.HeroesUiState.Loading -> LoadingScreen() //Экран загрузки
         is HomeViewModel.HeroesUiState.Error -> ErrorScreen(uiState.message) // Экран ошибки
-        is HomeViewModel.HeroesUiState.Success ->  SuccessScreen(navController, modifier, uiState.heroes) // Главный экран
+        is HomeViewModel.HeroesUiState.Success -> SuccessScreen(
+            navController,
+            modifier,
+            uiState.heroes
+        ) // Главный экран
     }
 }
 
 @Composable
-fun SuccessScreen(navController:NavController, modifier: Modifier, heroes:List<Hero>)
-{
+fun SuccessScreen(navController: NavController, modifier: Modifier, heroes: List<Hero>) {
     val lazyListState = rememberLazyListState()
     val snapBehavior = rememberSnapFlingBehavior(lazyListState = lazyListState)
     val heroes = heroes
@@ -66,7 +69,6 @@ fun SuccessScreen(navController:NavController, modifier: Modifier, heroes:List<H
     Box(
         modifier = modifier.fillMaxSize()
     ) {
-        // Фоновое изображение
         Image(
             painter = painterResource(id = R.drawable.background),
             contentDescription = "Фоновое изображение",
@@ -75,7 +77,6 @@ fun SuccessScreen(navController:NavController, modifier: Modifier, heroes:List<H
             contentScale = ContentScale.Crop
         )
 
-        // Логотип и текст
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -105,7 +106,6 @@ fun SuccessScreen(navController:NavController, modifier: Modifier, heroes:List<H
                 color = Color.White
             )
 
-            // Карты с героями
             LazyRow(
                 modifier = Modifier
                     .fillMaxSize()

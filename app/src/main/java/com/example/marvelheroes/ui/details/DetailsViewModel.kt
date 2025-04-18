@@ -16,8 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailsViewModel @Inject constructor(
     private val repository: HeroRepository
-) : ViewModel()
-{
+) : ViewModel() {
     sealed interface HeroUiState {
         data class Success(val hero: Hero) : HeroUiState
         class Error(val message: String) : HeroUiState
