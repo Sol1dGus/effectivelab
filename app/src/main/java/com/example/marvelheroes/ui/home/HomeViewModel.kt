@@ -6,22 +6,19 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.marvelheroes.data.api.MarvelApi
-import com.example.marvelheroes.data.api.MarvelApiClient
 import com.example.marvelheroes.data.models.Hero
 import com.example.marvelheroes.data.repository.HeroRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import okio.IOException
+import okhttp3.internal.immutableListOf
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val repository: HeroRepository
-) : ViewModel()
-{
+) : ViewModel() {
 
-sealed interface HeroesUiState {
+    sealed interface HeroesUiState {
         data class Success(val heroes: List<Hero>) : HeroesUiState
         class Error(val message: String) : HeroesUiState
         object Loading : HeroesUiState
@@ -30,7 +27,7 @@ sealed interface HeroesUiState {
     private var _uiState by mutableStateOf<HeroesUiState>(HeroesUiState.Loading)
     val uiState: HeroesUiState get() = _uiState
 
-    val heroIds = listOf(
+    val heroIds = immutableListOf(
         1009610, // Spider-Man
         1009368, // Iron Man
         1009220, // Captain America

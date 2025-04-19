@@ -2,7 +2,6 @@ package com.example.marvelheroes.data.repository
 
 import com.example.marvelheroes.BuildConfig
 import com.example.marvelheroes.data.api.MarvelApi
-import com.example.marvelheroes.data.api.MarvelApiClient
 import com.example.marvelheroes.data.api.MarvelHashHelper
 import com.example.marvelheroes.data.models.Hero
 import javax.inject.Inject
@@ -22,10 +21,9 @@ class HeroRepository @Inject constructor(
         return response.data.results.map { it.toHero() }
     }
 
-    suspend fun getHeroesByIds(ids: List<Int>) : List<Hero>
-    {
+    suspend fun getHeroesByIds(ids: List<Int>): List<Hero> {
         var heroList = mutableListOf<Hero>()
-        for (id : Int in ids) {
+        for (id: Int in ids) {
             val timestamp = System.currentTimeMillis().toString()
             val response = api.getCharacterById(
                 id = id,

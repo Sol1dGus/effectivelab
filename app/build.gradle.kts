@@ -13,8 +13,12 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        buildConfigField ("String", "MARVEL_PUBLIC_KEY", "\"b599b2cea5c8b794ba83cadf41a70e67\"")
-        buildConfigField ("String", "MARVEL_PRIVATE_KEY", "\"768333402f2317458d0ead51c300c9f3947a0b64\"")
+        buildConfigField("String", "MARVEL_PUBLIC_KEY", "\"b599b2cea5c8b794ba83cadf41a70e67\"")
+        buildConfigField(
+            "String",
+            "MARVEL_PRIVATE_KEY",
+            "\"768333402f2317458d0ead51c300c9f3947a0b64\""
+        )
 
         applicationId = "com.example.marvelheroes"
         minSdk = 24
@@ -54,13 +58,13 @@ kapt {
 dependencies {
     implementation(libs.retrofit)
     implementation(libs.moshi.kotlin)
-    implementation (libs.converter.moshi)
+    implementation(libs.converter.moshi)
     implementation(libs.commons.codec)
     implementation(libs.converter.scalars)
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
-    implementation (libs.github.compose)
+    implementation(libs.github.compose)
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
     implementation(libs.androidx.core.ktx)
