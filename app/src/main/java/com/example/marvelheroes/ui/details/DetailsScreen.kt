@@ -54,7 +54,7 @@ fun DetailsScreen(
         viewModel.getHero(heroId)
     }
 
-    val uiState = viewModel.uiState;
+    val uiState = viewModel.uiState
     when (uiState) {
         is DetailsViewModel.HeroUiState.Loading -> LoadingScreen()
         is DetailsViewModel.HeroUiState.Error -> ErrorScreen(uiState.message)
