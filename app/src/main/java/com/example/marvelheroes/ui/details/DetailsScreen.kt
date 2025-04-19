@@ -1,16 +1,16 @@
 package com.example.marvelheroes.ui.details
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -25,7 +25,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -36,6 +35,13 @@ import com.example.marvelheroes.R
 import com.example.marvelheroes.data.models.Hero
 import com.example.marvelheroes.ui.loading.LoadingScreen
 import com.example.marvelheroes.ui.error.ErrorScreen
+import com.example.marvelheroes.ui.theme.invisible
+import androidx.compose.material3.Card
+import androidx.compose.material3.Icon
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+
+const val TIME_TO_SECOND_CLICK = 500
 
 @Composable
 fun DetailsScreen(
@@ -51,10 +57,11 @@ fun DetailsScreen(
     val uiState = viewModel.uiState;
     when (uiState) {
         is DetailsViewModel.HeroUiState.Loading -> LoadingScreen()
-        is DetailsViewModel.HeroUiState.Error -> ErrorScreen(uiState.message) // Экран ошибки
+        is DetailsViewModel.HeroUiState.Error -> ErrorScreen(uiState.message)
         is DetailsViewModel.HeroUiState.Success -> SuccessScreen(navController, uiState.hero)
     }
 }
+
 
 @Composable
 fun SuccessScreen(navController: NavController, hero: Hero) {
@@ -76,32 +83,37 @@ fun SuccessScreen(navController: NavController, hero: Hero) {
             error = painterResource(R.drawable.error)
         )
 
-        OutlinedCard(
+        Card(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
                 .padding(vertical = 36.dp),
             colors = CardDefaults.cardColors(
-                containerColor = Color(0xFF000000)
-            ),
-
-            border = BorderStroke(1.dp, Color.Red),
+                containerColor = invisible
+            )
         ) {
             Column(
-                horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
                     text = hero.name,
-                    style = TextStyle(fontSize = 16.sp, lineHeight = 36.sp),
+                    style = TextStyle(
+                        fontSize = 48.sp,
+                        lineHeight = 64.sp,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Start
+                    ),
                     color = Color.White,
-                    fontSize = 36.sp,
-                    modifier = Modifier.padding(8.dp)
+                    modifier = Modifier.padding(8.dp),
                 )
 
                 Text(
                     text = hero.description,
                     color = Color.White,
-                    fontSize = 16.sp,
+                    style = TextStyle(
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Start
+                    ),
                     modifier = Modifier.padding(8.dp)
                 )
             }
@@ -115,20 +127,23 @@ fun SuccessScreen(navController: NavController, hero: Hero) {
             Button(
                 onClick = {
                     val currentTime = System.currentTimeMillis()
-                    if (currentTime - lastClickTime > 500) {
+                    // Time between 2 clicks
+                    if (currentTime - lastClickTime > TIME_TO_SECOND_CLICK) {
                         lastClickTime = currentTime
                         navController.popBackStack()
                     }
                 },
                 colors = ButtonColors(
-                    containerColor = Color.Black,
+                    containerColor = invisible,
                     contentColor = Color.White,
-                    disabledContainerColor = Color.Black,
-                    disabledContentColor = Color.Black
-                ),
-                border = BorderStroke(width = 1.dp, color = Color.Red)
+                    disabledContainerColor = invisible,
+                    disabledContentColor = invisible
+                )
             ) {
-                Text(text = "<")
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                    contentDescription = null
+                )
             }
         }
     }

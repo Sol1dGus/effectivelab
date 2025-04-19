@@ -2,7 +2,6 @@ package com.example.marvelheroes.data.repository
 
 import com.example.marvelheroes.BuildConfig
 import com.example.marvelheroes.data.api.MarvelApi
-import com.example.marvelheroes.data.api.MarvelApiClient
 import com.example.marvelheroes.data.api.MarvelHashHelper
 import com.example.marvelheroes.data.models.Hero
 import javax.inject.Inject
