@@ -7,7 +7,7 @@ import com.example.marvelheroes.data.repository.HeroRepository
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.viewModelScope
-import com.example.marvelheroes.data.models.Hero
+import com.example.marvelheroes.data.models.CharacterUI
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,7 +18,7 @@ class DetailsViewModel @Inject constructor(
     private val repository: HeroRepository
 ) : ViewModel() {
     sealed interface HeroUiState {
-        data class Success(val hero: Hero) : HeroUiState
+        data class Success(val characterUI: CharacterUI) : HeroUiState
         class Error(val message: String) : HeroUiState
         object Loading : HeroUiState
     }
@@ -31,9 +31,9 @@ class DetailsViewModel @Inject constructor(
             if (id != null) {
                 _uiState = HeroUiState.Loading
                 try {
-                    val hero = repository.getHeroById(id)
-                    Log.d("HeroImage", hero.imageUrl)
-                    _uiState = HeroUiState.Success(hero)
+                    val characterUI = repository.getHeroById(id)
+                    Log.d("HeroImage", characterUI.thumbnailUrl)
+                    _uiState = HeroUiState.Success(characterUI)
                 } catch (e: Exception) {
                     _uiState = HeroUiState.Error(e.localizedMessage ?: "Unknown problem")
                 }

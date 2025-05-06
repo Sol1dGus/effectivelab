@@ -1,6 +1,6 @@
 package com.example.marvelheroes.data.api
 
-import com.example.marvelheroes.data.models.Hero
+import com.example.marvelheroes.data.models.CharacterUI
 import com.squareup.moshi.Json
 
 data class MarvelResponse(
@@ -19,11 +19,11 @@ data class CharacterDto(
     val description: String,
     val thumbnail: Thumbnail
 ) {
-    fun toHero(): Hero = Hero(
+    fun toCharacterUI(): CharacterUI = CharacterUI(
         id = id,
         name = name,
         description = description,
-        imageUrl = "${thumbnail.path.replace("http", "https")}.${thumbnail.extension}"
+        thumbnailUrl = "${thumbnail.path.replace("http", "https")}.${thumbnail.extension}"
     )
 }
 

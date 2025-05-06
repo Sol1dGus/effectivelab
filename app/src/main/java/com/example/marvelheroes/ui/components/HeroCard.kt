@@ -22,21 +22,28 @@ import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import com.example.marvelheroes.R
-import com.example.marvelheroes.data.models.Hero
+import com.example.marvelheroes.data.models.CharacterUI
+import com.example.marvelheroes.ui.theme.cardPaddingHorizontal
+import com.example.marvelheroes.ui.theme.cardPaddingVertical
+import com.example.marvelheroes.ui.theme.cardSizeWidth
+import com.example.marvelheroes.ui.theme.cardTextPadding
+import com.example.marvelheroes.ui.theme.textColor
+import com.example.marvelheroes.ui.theme.textContentSize
+import com.example.marvelheroes.ui.theme.textTitleSize
 
 @Composable
 fun HeroCard(
     modifier: Modifier = Modifier,
-    hero: Hero,
+    characterUI: CharacterUI,
     onClick: (Int) -> Unit
 ) {
     Card(
         modifier = modifier
             .fillMaxHeight()
-            .width(350.dp)
-            .clickable { onClick(hero.id) }
-            .padding(horizontal = 28.dp)
-            .padding(vertical = 48.dp),
+            .width(width = cardSizeWidth)
+            .clickable { onClick(characterUI.id) }
+            .padding(horizontal = cardPaddingHorizontal)
+            .padding(vertical = cardPaddingVertical),
     ) {
         Box(
             modifier = Modifier
@@ -46,7 +53,7 @@ fun HeroCard(
         {
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
-                    .data(hero.imageUrl)
+                    .data(characterUI.thumbnailUrl)
                     .build(),
                 placeholder = painterResource(R.drawable.loading),
                 modifier = Modifier
@@ -57,12 +64,12 @@ fun HeroCard(
             )
 
             Text(
-                text = hero.name,
-                style = TextStyle(fontSize = 16.sp, lineHeight = 36.sp, fontWeight = FontWeight.Bold),
-                color = Color.White,
+                text = characterUI.name,
+                style = TextStyle(fontSize = textContentSize, lineHeight = 36.sp, fontWeight = FontWeight.Bold),
+                color = textColor,
                 modifier = Modifier
-                    .padding(16.dp),
-                fontSize = 36.sp
+                    .padding(cardTextPadding),
+                fontSize = textTitleSize
             )
         }
     }

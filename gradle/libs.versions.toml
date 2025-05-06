@@ -1,5 +1,6 @@
 [versions]
 agp = "8.9.1"
+androidxRoomRoomRuntime2 = "2.7.0"
 coilCompose = "3.1.0"
 commonsCodec = "1.16.0"
 converterScalars = "2.9.0"
@@ -20,6 +21,9 @@ navigationCompose = "2.8.9"
 retrofit = "2.9.0"
 
 [libraries]
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "androidxRoomRoomRuntime2" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "androidxRoomRoomRuntime2" }
+androidx-room-room-runtime4 = { module = "androidx.room:room-runtime", version.ref = "androidxRoomRoomRuntime2" }
 commons-codec = { module = "commons-codec:commons-codec", version.ref = "commonsCodec" }
 converter-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "converterScalars" }
 converter-scalars = { module = "com.squareup.retrofit2:converter-scalars", version.ref = "converterScalars" }
