@@ -13,11 +13,11 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        buildConfigField("String", "MARVEL_PUBLIC_KEY", "\"b599b2cea5c8b794ba83cadf41a70e67\"")
+        buildConfigField("String", "MARVEL_PUBLIC_KEY", "\"1cb26014ffc866eed9b84770d32f5ff5\"")
         buildConfigField(
             "String",
             "MARVEL_PRIVATE_KEY",
-            "\"768333402f2317458d0ead51c300c9f3947a0b64\""
+            "\"06cb168af4b4d497a1911b59f2858816247d5bae\""
         )
 
         applicationId = "com.example.marvelheroes"
@@ -56,6 +56,10 @@ kapt {
 }
 
 dependencies {
+    // Room
+    implementation(libs.androidx.room.room.runtime4)
+    kapt(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
     implementation(libs.retrofit)
     implementation(libs.moshi.kotlin)
     implementation(libs.converter.moshi)

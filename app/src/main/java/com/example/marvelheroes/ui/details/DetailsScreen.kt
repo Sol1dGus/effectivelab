@@ -32,7 +32,7 @@ import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import com.example.marvelheroes.R
-import com.example.marvelheroes.data.models.Hero
+import com.example.marvelheroes.data.models.CharacterUI
 import com.example.marvelheroes.ui.loading.LoadingScreen
 import com.example.marvelheroes.ui.error.ErrorScreen
 import com.example.marvelheroes.ui.theme.invisible
@@ -40,6 +40,11 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import com.example.marvelheroes.ui.theme.detailCardPaddingHorizontal
+import com.example.marvelheroes.ui.theme.detailCardPaddingVertical
+import com.example.marvelheroes.ui.theme.textColor
+import com.example.marvelheroes.ui.theme.textContentSize
+import com.example.marvelheroes.ui.theme.textHeroNameSize
 
 const val TIME_TO_SECOND_CLICK = 500
 
@@ -58,13 +63,13 @@ fun DetailsScreen(
     when (uiState) {
         is DetailsViewModel.HeroUiState.Loading -> LoadingScreen()
         is DetailsViewModel.HeroUiState.Error -> ErrorScreen(uiState.message)
-        is DetailsViewModel.HeroUiState.Success -> SuccessScreen(navController, uiState.hero)
+        is DetailsViewModel.HeroUiState.Success -> SuccessScreen(navController, uiState.characterUI)
     }
 }
 
 
 @Composable
-fun SuccessScreen(navController: NavController, hero: Hero) {
+fun SuccessScreen(navController: NavController, characterUI: CharacterUI) {
     var lastClickTime by remember { mutableLongStateOf(0L) }
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -72,8 +77,8 @@ fun SuccessScreen(navController: NavController, hero: Hero) {
     )
     {
         AsyncImage(
-            model = ImageRequest.Builder(LocalContext.current)
-                .data(hero.imageUrl)
+            model = ImageRequest.Builder(context = LocalContext.current)
+                .data(characterUI.thumbnailUrl)
                 .build(),
             placeholder = painterResource(R.drawable.loading),
             modifier = Modifier
@@ -86,8 +91,8 @@ fun SuccessScreen(navController: NavController, hero: Hero) {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp)
-                .padding(vertical = 36.dp),
+                .padding(horizontal = detailCardPaddingHorizontal)
+                .padding(vertical = detailCardPaddingVertical),
             colors = CardDefaults.cardColors(
                 containerColor = invisible
             )
@@ -95,22 +100,22 @@ fun SuccessScreen(navController: NavController, hero: Hero) {
             Column(
             ) {
                 Text(
-                    text = hero.name,
+                    text = characterUI.name,
                     style = TextStyle(
-                        fontSize = 48.sp,
+                        fontSize = textHeroNameSize,
                         lineHeight = 64.sp,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Start
                     ),
-                    color = Color.White,
+                    color = textColor,
                     modifier = Modifier.padding(8.dp),
                 )
 
                 Text(
-                    text = hero.description,
-                    color = Color.White,
+                    text = characterUI.description,
+                    color = textColor,
                     style = TextStyle(
-                        fontSize = 16.sp,
+                        fontSize = textContentSize,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Start
                     ),
@@ -135,7 +140,7 @@ fun SuccessScreen(navController: NavController, hero: Hero) {
                 },
                 colors = ButtonColors(
                     containerColor = invisible,
-                    contentColor = Color.White,
+                    contentColor = textColor,
                     disabledContainerColor = invisible,
                     disabledContentColor = invisible
                 )
