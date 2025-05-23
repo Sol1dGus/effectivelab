@@ -1,21 +1,37 @@
-# Add project specific ProGuard rules here.
-# You can control the set of applied configuration files using the
-# proguardFiles setting in build.gradle.
-#
-# For more details, see
-#   http://developer.android.com/guide/developing/tools/proguard.html
+# MOSHI: Полная защита
+-keep class com.squareup.moshi.** { *; }
+-keep class * extends com.squareup.moshi.JsonAdapter { *; }
+-keepclasseswithmembers class * {
+    @com.squareup.moshi.Json <fields>;
+}
 
-# If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
-# class:
-#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
-#   public *;
-#}
+# RETROFIT
+-keep class retrofit2.** { *; }
+-keepclasseswithmembers class * {
+    @retrofit2.http.* <methods>;
+}
 
-# Uncomment this to preserve the line number information for
-# debugging stack traces.
-#-keepattributes SourceFile,LineNumberTable
+# Сохраняем информацию о дженериках
+-keepattributes Signature
 
-# If you keep the line number information, uncomment this to
-# hide the original source file name.
-#-renamesourcefileattribute SourceFile
+# Сохраняем аннотации (нужны Moshi)
+-keepattributes *Annotation*
+
+# Сохраняем все классы с @JsonClass (generateAdapter = true)
+-keep class * {
+    @com.squareup.moshi.JsonClass <fields>;
+}
+-keep @com.squareup.moshi.JsonClass class * {
+    <init>(...);
+}
+
+# Конкретно сохранить ваши модели
+-keep class com.example.marvelheroes.data.models.** { *; }
+
+# Если используете KotlinJsonAdapterFactory — сохранить классы с kotlin-модулями
+-keep class kotlin.Metadata
+
+-dontwarn coil3.PlatformContext
+
+# Generic-типы (обязательно!)
+-keepattributes Signature, RuntimeVisibleAnnotations

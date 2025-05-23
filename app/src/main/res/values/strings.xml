@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">Marvel Heroes</string>
-    <string name="description" />
+    <string name="welcome">Choose your hero!</string>
 </resources>

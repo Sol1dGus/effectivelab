@@ -6,6 +6,9 @@ import com.example.marvelheroes.data.api.MarvelHashHelper
 import com.example.marvelheroes.data.db.CharacterDao
 import com.example.marvelheroes.data.models.CharacterMapper
 import com.example.marvelheroes.data.models.CharacterUI
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
 import javax.inject.Inject
 
 class HeroRepository @Inject constructor(
@@ -13,12 +16,17 @@ class HeroRepository @Inject constructor(
     private val hashGenerator: MarvelHashHelper,
     private val dao: CharacterDao
 ) {
-    suspend fun getHeroesByIds(ids: List<Int>): List<CharacterUI> {
-        var characterUIList : MutableList<CharacterUI> = mutableListOf()
-        ids.forEach { id ->
-            characterUIList.add(getHeroById(id))
-        }
-        return characterUIList
+    suspend fun getHeroesByIds(ids: List<Int>): List<CharacterUI> = coroutineScope {
+        ids.map { id ->
+            async {
+                try {
+                    getHeroById(id) // Предположительно это suspend-функция, возвращающая CharacterUI
+                } catch (e: Exception) {
+                    null // Можно залогировать или вернуть placeholder
+                }
+            }
+        }.awaitAll()
+            .filterNotNull() // Удаляем неудачные запросы
     }
 
     suspend fun getHeroById(id: Int): CharacterUI {

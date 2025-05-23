@@ -38,11 +38,11 @@ import com.example.marvelheroes.ui.error.ErrorScreen
 import com.example.marvelheroes.ui.theme.invisible
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import com.example.marvelheroes.ui.theme.detailCardPaddingHorizontal
 import com.example.marvelheroes.ui.theme.detailCardPaddingVertical
-import com.example.marvelheroes.ui.theme.textColor
 import com.example.marvelheroes.ui.theme.textContentSize
 import com.example.marvelheroes.ui.theme.textHeroNameSize
 
@@ -107,13 +107,13 @@ fun SuccessScreen(navController: NavController, characterUI: CharacterUI) {
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Start
                     ),
-                    color = textColor,
+                    color = colorResource(R.color.white),
                     modifier = Modifier.padding(8.dp),
                 )
 
                 Text(
                     text = characterUI.description,
-                    color = textColor,
+                    color = colorResource(R.color.white),
                     style = TextStyle(
                         fontSize = textContentSize,
                         fontWeight = FontWeight.Bold,
@@ -140,7 +140,7 @@ fun SuccessScreen(navController: NavController, characterUI: CharacterUI) {
                 },
                 colors = ButtonColors(
                     containerColor = invisible,
-                    contentColor = textColor,
+                    contentColor = colorResource(R.color.white),
                     disabledContainerColor = invisible,
                     disabledContentColor = invisible
                 )

@@ -1,9 +1,11 @@
 package com.example.marvelheroes.ui.components
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
@@ -14,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -27,9 +30,9 @@ import com.example.marvelheroes.ui.theme.cardPaddingHorizontal
 import com.example.marvelheroes.ui.theme.cardPaddingVertical
 import com.example.marvelheroes.ui.theme.cardSizeWidth
 import com.example.marvelheroes.ui.theme.cardTextPadding
-import com.example.marvelheroes.ui.theme.textColor
 import com.example.marvelheroes.ui.theme.textContentSize
 import com.example.marvelheroes.ui.theme.textTitleSize
+import com.example.marvelheroes.ui.utils.isPortrait
 
 @Composable
 fun HeroCard(
@@ -37,6 +40,7 @@ fun HeroCard(
     characterUI: CharacterUI,
     onClick: (Int) -> Unit
 ) {
+    Log.d("ImageUrlInHeroCard", characterUI.thumbnailUrl)
     Card(
         modifier = modifier
             .fillMaxHeight()
@@ -66,7 +70,7 @@ fun HeroCard(
             Text(
                 text = characterUI.name,
                 style = TextStyle(fontSize = textContentSize, lineHeight = 36.sp, fontWeight = FontWeight.Bold),
-                color = textColor,
+                color = colorResource(R.color.white),
                 modifier = Modifier
                     .padding(cardTextPadding),
                 fontSize = textTitleSize
