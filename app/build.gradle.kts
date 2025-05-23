@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    id("kotlin-kapt")
+    id("com.google.devtools.ksp")
     alias(libs.plugins.hilt)
 }
 
@@ -15,9 +15,7 @@ android {
     defaultConfig {
         buildConfigField("String", "MARVEL_PUBLIC_KEY", "\"1cb26014ffc866eed9b84770d32f5ff5\"")
         buildConfigField(
-            "String",
-            "MARVEL_PRIVATE_KEY",
-            "\"06cb168af4b4d497a1911b59f2858816247d5bae\""
+            "String", "MARVEL_PRIVATE_KEY", "\"06cb168af4b4d497a1911b59f2858816247d5bae\""
         )
 
         applicationId = "com.example.marvelheroes"
@@ -31,10 +29,10 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
         }
     }
@@ -51,14 +49,13 @@ android {
     }
 }
 
-kapt {
-    correctErrorTypes = true
-}
-
 dependencies {
-    // Room
+    ksp(libs.moshi.kotlin.codegen)
+    implementation(libs.kotlinx.coroutines.android)
     implementation(libs.androidx.room.room.runtime4)
-    kapt(libs.androidx.room.compiler)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.activity)
+    implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.room.ktx)
     implementation(libs.retrofit)
     implementation(libs.moshi.kotlin)
@@ -66,7 +63,7 @@ dependencies {
     implementation(libs.commons.codec)
     implementation(libs.converter.scalars)
     implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
+    ksp(libs.hilt.compiler)
     implementation(libs.hilt.navigation.compose)
     implementation(libs.github.compose)
     implementation(libs.coil.compose)
@@ -88,5 +85,4 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-
 }

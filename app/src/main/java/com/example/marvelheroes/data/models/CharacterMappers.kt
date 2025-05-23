@@ -1,15 +1,12 @@
 package com.example.marvelheroes.data.models
 
-import com.example.marvelheroes.data.api.CharacterDto
-
 object CharacterMapper {
-
-    fun dtoToUI(dto: CharacterDto): CharacterUI {
+    fun dtoToUI(dto: CharacterDto, language: String = "en"): CharacterUI {
         return CharacterUI(
             id = dto.id,
             name = dto.name,
             description = dto.description,
-            thumbnailUrl = "${dto.thumbnail.path}.${dto.thumbnail.extension}"
+            thumbnailUrl = "${dto.thumbnail.path.replace("http://", "https://")}.${dto.thumbnail.extension}"
         )
     }
 
@@ -22,12 +19,12 @@ object CharacterMapper {
         )
     }
 
-    fun dtoToEntity(dto: CharacterDto): CharacterEntity {
+    fun dtoToEntity(dto: CharacterDto, language: String = "en"): CharacterEntity {
         return CharacterEntity(
             id = dto.id,
             name = dto.name,
             description = dto.description,
-            thumbnailUrl = "${dto.thumbnail.path}.${dto.thumbnail.extension}"
+            thumbnailUrl = "${dto.thumbnail.path.replace("http://", "https://")}.${dto.thumbnail.extension}"
         )
     }
 
