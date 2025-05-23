@@ -14,13 +14,13 @@ This is a demo Android application built with Jetpack Compose and modern archite
 
 ## 🖼️ Screenshots
 
-|                 Characters List                  |                 Character Details                 |
-|:------------------------------------------------:|:-------------------------------------------------:|
-| <img src="assets/homes_screen.jpg" height="400"> | <img src="assets/detail_screen.jpg" height="400"> |
+|                 Characters List                 |                 Character Details                 |
+|:-----------------------------------------------:|:-------------------------------------------------:|
+| <img src="assets/home_screen.png" height="400"> | <img src="assets/detail_screen.png" height="400"> |
 
 |                   Light Theme                   |                   Dark Theme                   |
 |:-----------------------------------------------:|:----------------------------------------------:|
-| <img src="assets/light_theme.jpg" height="400"> | <img src="assets/dark_theme.jpg" height="400"> |
+| <img src="assets/light_theme.png" height="400"> | <img src="assets/dark_theme.png" height="400"> |
 
 ## 🛠️ How to Run
 1. Install Android Studio (Giraffe or newer) with Kotlin 1.8+
